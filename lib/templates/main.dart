@@ -2,7 +2,7 @@ import 'package:saasfork_cli/utils/extensions/string_extension.dart';
 
 const mainTemplate = '''import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:{{project_name}}/initializer/app_initializer.dart';
+import 'package:{{project_name}}/core/initializer/app_initializer.dart';
 import 'package:{{project_name}}/core/router/router_initialize.dart';  
 import 'package:{{project_name}}/ui/pages/error_page.dart';
 

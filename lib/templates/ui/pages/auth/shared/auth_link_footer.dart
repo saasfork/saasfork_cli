@@ -2,7 +2,9 @@ import 'package:saasfork_cli/utils/extensions/string_extension.dart';
 
 const authLinkFooterTemplate =
     '''import 'package:{{project_name}}/core/extensions/build_context_localizations_extension.dart';
+import 'package:{{project_name}}/ui/pages/auth/forgotten_page.dart';
 import 'package:{{project_name}}/ui/pages/auth/login_page.dart';
+import 'package:{{project_name}}/ui/pages/auth/register_page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -28,13 +30,13 @@ class AuthLinksFooter extends StatelessWidget {
 
     switch (currentPage) {
       case AuthPageType.login:
-        // links.add(
-        //   _LinkText(
-        //     text: context.l10n.authLinkNoAccount,
-        //     link: context.l10n.authLinkCreateAccount,
-        //     onTap: () => context.router.pushPath(usernamePath),
-        //   ),
-        // );
+        links.add(
+          _LinkText(
+            text: context.l10n.authLinkNoAccount,
+            link: context.l10n.authLinkCreateAccount,
+            onTap: () => context.router.pushPath(RegisterPage.path),
+          ),
+        );
       case AuthPageType.register:
       case AuthPageType.forgotPassword:
         links.add(
@@ -47,12 +49,12 @@ class AuthLinksFooter extends StatelessWidget {
     }
 
     if (currentPage == AuthPageType.login) {
-      // links.add(
-      //   _LinkText(
-      //     link: context.l10n.authLinkForgotPassword,
-      //     onTap: () => context.router.pushPath(forgottenPath),
-      //   ),
-      // );
+      links.add(
+        _LinkText(
+          link: context.l10n.authLinkForgotPassword,
+          onTap: () => context.router.pushPath(ForgottenPage.path),
+        ),
+      );
     } else if (currentPage == AuthPageType.register ||
         currentPage == AuthPageType.forgotPassword) {
       links.add(

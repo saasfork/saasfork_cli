@@ -97,9 +97,44 @@ Future<void> runCreateCommand(
     await packageService.generateLocalizations(projectPath);
 
     // Message de fin
-    print('✅ Projet créé avec succès ${isDev ? "en mode développement" : ""}');
+    print(
+      '\n✅ Projet créé avec succès ${isDev ? "en mode développement" : ""}',
+    );
+
+    // Afficher un encart invitant à configurer Firebase
+    _displayFirebaseInstructions(projectNameSnakeCase, projectPath);
   } catch (e) {
     print('❌ Erreur lors de la création du projet:');
     print(e);
   }
+}
+
+/// Affiche un encart avec des instructions pour configurer Firebase
+void _displayFirebaseInstructions(String projectName, String projectPath) {
+  final separator = '=' * 80;
+
+  print('\n$separator');
+  print('🔥 CONFIGURATION FIREBASE REQUISE 🔥');
+  print(separator);
+  print('');
+  print(
+    'Pour terminer la configuration de votre projet, vous devez configurer Firebase.',
+  );
+  print('Exécutez les commandes suivantes:');
+  print('');
+  print('  cd $projectName');
+  print('  dart pub global activate flutterfire_cli');
+  print('  flutterfire configure');
+  print('');
+  print('Cela va:');
+  print('  1. Vous connecter à votre compte Firebase');
+  print(
+    '  2. Vous permettre de sélectionner un projet Firebase existant ou d\'en créer un nouveau',
+  );
+  print('  3. Configurer votre application pour utiliser Firebase');
+  print('');
+  print(
+    'Pour plus d\'informations: https://firebase.google.com/docs/flutter/setup',
+  );
+  print(separator);
 }

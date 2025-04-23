@@ -7,6 +7,8 @@ import 'package:{{project_name}}/ui/pages/dashboard_page.dart';
 import 'package:{{project_name}}/ui/pages/auth/login_page.dart';
 import 'package:{{project_name}}/ui/pages/auth/register_page.dart';
 import 'package:{{project_name}}/ui/pages/auth/forgotten_page.dart';
+import 'package:{{project_name}}/core/router/guards/auth_guard.dart';
+import 'package:{{project_name}}/core/router/guards/unauthenticated_guard.dart';
 
 part 'router.gr.dart';
 
@@ -18,11 +20,31 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: HomePageRoute.page, initial: true, path: HomePage.path),
-        AutoRoute(page: LoginPageRoute.page, path: LoginPage.path),
-        AutoRoute(page: RegisterPageRoute.page, path: RegisterPage.path),
-        AutoRoute(page: ForgottenPageRoute.page, path: ForgottenPage.path),
-        AutoRoute(page: DashboardPageRoute.page, path: DashboardPage.path),
+         AutoRoute(
+          page: HomePageRoute.page,
+          initial: true,
+          path: HomePage.path,
+        ),
+        AutoRoute(
+          page: LoginPageRoute.page,
+          path: LoginPage.path,
+          guards: [UnauthenticatedGuard(ref)],
+        ),
+        AutoRoute(
+          page: RegisterPageRoute.page,
+          path: RegisterPage.path,
+          guards: [UnauthenticatedGuard(ref)],
+        ),
+        AutoRoute(
+          page: ForgottenPageRoute.page,
+          path: ForgottenPage.path,
+          guards: [UnauthenticatedGuard(ref)],
+        ),
+        AutoRoute(
+          page: DashboardPageRoute.page,
+          path: DashboardPage.path,
+          guards: [AuthGuard(ref)],
+        ),
       ];
 }
 ''';

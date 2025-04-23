@@ -1,7 +1,10 @@
 import 'package:saasfork_cli/utils/extensions/string_extension.dart';
 
-const homePageTemplate = '''import 'package:flutter/material.dart';
+const homePageTemplate =
+    '''import 'package:{{project_name}}/ui/layouts/default_layout.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:saasfork_core/saasfork_core.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {
@@ -10,11 +13,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('{{ProjectName}}'),
+    return const DefaultLayout(
+      seoModel: SFSEOModel(
+        title: '{{ProjectName}}',
+        description: 'Bienvenue dans votre application {{ProjectName}}',
       ),
-      body: const Center(
+      content: const Center(
         child: Text('Bienvenue dans votre application {{ProjectName}}!'),
       ),
     );

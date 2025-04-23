@@ -2,10 +2,12 @@ import 'package:saasfork_cli/utils/extensions/string_extension.dart';
 
 const appInitializerTemplate =
     '''import 'package:{{project_name}}/app_config.dart';
+import 'package:{{project_name}}/firebase_options.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:saasfork_core/saasfork_core.dart';
+import 'package:saasfork_firebase_service/saasfork_firebase_service.dart';
 
 class AppInitializer {
   static Future<void> initialize() async {
@@ -25,6 +27,12 @@ class AppInitializer {
 
       await AppConfig.initialize(
         environment: isDev ? SFConfig.dev : SFConfig.prod,
+      );
+
+      // Initialisation de Firebase directement depuis la config
+      await SFFirebaseBootstrap.initializeFromConfig(
+        options: DefaultFirebaseOptions.currentPlatform,
+        isDev: isDev,
       );
     } catch (e) {
       debugPrint('Erreur lors de l\\'initialisation de l\\'application: \$e');
