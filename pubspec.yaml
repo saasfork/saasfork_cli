@@ -7,9 +7,14 @@ environment:
   sdk: ^3.7.2
   flutter: ">=1.17.0"
 
+executables:
+  saasfork_cli: bin/saasfork_cli.dart
+
 dependencies:
   flutter:
     sdk: flutter
+  args: ^2.7.0
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:
