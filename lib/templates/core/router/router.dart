@@ -1,6 +1,12 @@
+import 'package:saasfork_cli/utils/extensions/string_extension.dart';
+
 const routerTemplate = '''import 'package:auto_route/auto_route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mon_app/ui/pages/home_page.dart';
+import 'package:{{project_name}}/ui/pages/home_page.dart';
+import 'package:{{project_name}}/ui/pages/dashboard_page.dart';
+import 'package:{{project_name}}/ui/pages/auth/login_page.dart';
+import 'package:{{project_name}}/ui/pages/auth/register_page.dart';
+import 'package:{{project_name}}/ui/pages/auth/forgotten_page.dart';
 
 part 'router.gr.dart';
 
@@ -10,14 +16,19 @@ class AppRouter extends RootStackRouter {
 
   AppRouter(this.ref);
 
-
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: HomePageRoute.page, initial: true, path: HomePage.path),
+        AutoRoute(page: LoginPageRoute.page, path: LoginPage.path),
+        AutoRoute(page: RegisterPageRoute.page, path: RegisterPage.path),
+        AutoRoute(page: ForgottenPageRoute.page, path: ForgottenPage.path),
+        AutoRoute(page: DashboardPageRoute.page, path: DashboardPage.path),
       ];
 }
 ''';
 
 String generateRouter(String projectName) {
-  return routerTemplate;
+  final String snakeCaseProjectName = projectName.toSnakeCase();
+
+  return routerTemplate.replaceAll('{{project_name}}', snakeCaseProjectName);
 }

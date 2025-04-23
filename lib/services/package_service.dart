@@ -62,4 +62,21 @@ class PackageService {
       return false;
     }
   }
+
+  /// Génère les fichiers de localisation
+  Future<bool> generateLocalizations(String projectPath) async {
+    print('🌐 Génération des fichiers de localisation...');
+    final genL10nResult = await Process.run('flutter', [
+      'gen-l10n',
+    ], workingDirectory: projectPath);
+
+    if (genL10nResult.exitCode == 0) {
+      print('✅ Fichiers de localisation générés avec succès!');
+      return true;
+    } else {
+      print('⚠️ Attention lors de la génération des fichiers de localisation:');
+      print(genL10nResult.stderr);
+      return false;
+    }
+  }
 }

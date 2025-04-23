@@ -35,9 +35,45 @@ Future<void> runCreateCommand(
 
     // Obtenir le chemin du projet
     final projectPath = projectService.getProjectPath(projectNameSnakeCase);
-    final targetLibDir = projectService.getLibDirectory(projectPath);
+    final libDir = projectService.getLibDirectory(projectPath);
 
-    // Installer les packages standard
+    // Générer un nouveau pubspec.yaml valide
+    await projectService.generateValidPubspec(
+      projectPath,
+      projectNameSnakeCase,
+    );
+
+    // Configurer pour les fichiers de localisation
+    await projectService.configurePubspecForLocalizations(projectPath);
+
+    // Générer tous les fichiers de template
+    await templateService.generateAllTemplates(
+      libDir,
+      templateGenerators,
+      projectNamePascal,
+      isDev: isDev,
+    );
+
+    // Générer les fichiers de traduction et créer le répertoire l10n
+    await templateService.generateTranslationFiles(
+      projectPath,
+      translateGenerators,
+      isDev: isDev,
+    );
+
+    // Copier les autres templates
+    final templateDir = await projectService.findTemplateDirectory();
+    if (templateDir != null) {
+      await templateService.copyAdditionalTemplates(
+        templateDir,
+        libDir,
+        projectNamePascal,
+        templateGenerators,
+        isDev: isDev,
+      );
+    }
+
+    // Installer les packages standard seulement après avoir créé les fichiers de localisation
     await packageService.installPackages(
       defaultPackages,
       projectPath: projectPath,
@@ -54,28 +90,11 @@ Future<void> runCreateCommand(
       await projectService.updatePubspecWithLocalPackages(projectPath);
     }
 
-    // Générer tous les fichiers de template
-    await templateService.generateAllTemplates(
-      targetLibDir,
-      templateGenerators,
-      projectNamePascal,
-      isDev: isDev,
-    );
-
-    // Copier les autres templates
-    final templateDir = await projectService.findTemplateDirectory();
-    if (templateDir != null) {
-      await templateService.copyAdditionalTemplates(
-        templateDir,
-        targetLibDir,
-        projectNamePascal,
-        templateGenerators,
-        isDev: isDev,
-      );
-    }
-
     // Exécuter build_runner
     await packageService.runBuildRunner(projectPath);
+
+    // Génération des fichiers de localisation
+    await packageService.generateLocalizations(projectPath);
 
     // Message de fin
     print('✅ Projet créé avec succès ${isDev ? "en mode développement" : ""}');

@@ -1,7 +1,7 @@
 import 'package:saasfork_cli/utils/extensions/string_extension.dart';
 
 const routerInitializeTemplate =
-    '''/// import 'package:{{project_name}}/generated/l10n/app_localizations.dart';
+    '''import 'package:{{project_name}}/generated/l10n/app_localizations.dart';
 import 'package:{{project_name}}/core/router/router.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
@@ -28,12 +28,12 @@ class _RouterInitializeState extends ConsumerState<RouterInitialize> {
       darkTheme: AppTheme.darkTheme,
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       localizationsDelegates: const [
-///        AppLocalizations.delegate,
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-///      supportedLocales: AppLocalizations.supportedLocales,
+      supportedLocales: AppLocalizations.supportedLocales,
 ///      locale: locale,
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter.config(),
