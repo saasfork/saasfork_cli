@@ -26,6 +26,8 @@ import '../templates/ui/pages/auth/shared/auth_link_footer.dart'
 import '../templates/ui/layouts/username_layout.dart'
     as username_layout_template;
 import '../templates/ui/layouts/default_layout.dart' as default_layout_template;
+import '../templates/ui/layouts/dashboard_layout.dart'
+    as dashboard_layout_template;
 import '../templates/ui/layouts/common/logo_widget.dart'
     as logo_widget_template;
 
@@ -79,6 +81,8 @@ final Map<String, String Function(String)> templateGenerators = {
   'ui/layouts/default_layout.dart':
       default_layout_template.generateDefaultLayout,
   'ui/layouts/common/logo_widget.dart': logo_widget_template.generateLogoWidget,
+  'ui/layouts/dashboard_layout.dart':
+      dashboard_layout_template.generateDashboardLayout,
 };
 
 /// Structure des traductions à générer par langue

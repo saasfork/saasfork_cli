@@ -55,15 +55,6 @@ class AuthLinksFooter extends StatelessWidget {
           onTap: () => context.router.pushPath(ForgottenPage.path),
         ),
       );
-    } else if (currentPage == AuthPageType.register ||
-        currentPage == AuthPageType.forgotPassword) {
-      links.add(
-        _LinkText(
-          text: context.l10n.authLinkOr,
-          link: context.l10n.authLinkLogin,
-          onTap: () => context.router.pushPath(LoginPage.path),
-        ),
-      );
     }
 
     return links.separatedBy(const SizedBox(height: AppSpacing.xs));

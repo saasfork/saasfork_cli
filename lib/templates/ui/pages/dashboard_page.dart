@@ -1,21 +1,26 @@
 import 'package:saasfork_cli/utils/extensions/string_extension.dart';
 
-const dashboardPageTemplate = '''import 'package:flutter/material.dart';
+const dashboardPageTemplate =
+    '''import 'package:{{project_name}}/ui/layouts/dashboard_layout.dart';
+import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:saasfork_core/saasfork_core.dart';
 
 @RoutePage()
 class DashboardPage extends StatelessWidget {
   static const String path = '/dashboard';
+
   const DashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('{{ProjectName}}'),
+    return const DashboardLayout(
+      seoModel: SFSEOModel(
+        title: 'AppYoutube',
+        description: 'Bienvenue dans votre dashboard AppYoutube',
       ),
-      body: const Center(
-        child: Text('Bienvenue dans votre dashboard {{ProjectName}}!'),
+      content: Center(
+        child: Text('Bienvenue dans votre dashboard AppYoutube!'),
       ),
     );
   }

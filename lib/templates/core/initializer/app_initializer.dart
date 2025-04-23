@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:saasfork_core/saasfork_core.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:saasfork_firebase_service/saasfork_firebase_service.dart';
 
 class AppInitializer {
@@ -24,6 +25,8 @@ class AppInitializer {
           setUrlStrategy(PathUrlStrategy());
         }
       }
+
+      await FlutterLocalization.instance.ensureInitialized();
 
       await AppConfig.initialize(
         environment: isDev ? SFConfig.dev : SFConfig.prod,
