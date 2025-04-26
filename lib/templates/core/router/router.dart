@@ -1,6 +1,9 @@
 import 'package:saasfork_cli/utils/extensions/string_extension.dart';
 
-const routerTemplate = '''import 'package:auto_route/auto_route.dart';
+const routerTemplate = '''import 'package:{{project_name}}/ui/pages/checkout/cancelled_page.dart';
+import 'package:{{project_name}}/ui/pages/checkout/confirmation_page.dart';
+import 'package:{{project_name}}/ui/pages/checkout/price_page.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:{{project_name}}/ui/pages/home_page.dart';
 import 'package:{{project_name}}/ui/pages/dashboard_page.dart';
@@ -46,6 +49,21 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           page: DashboardPageRoute.page,
           path: DashboardPage.path,
+          guards: [AuthGuard(ref)],
+        ),
+        AutoRoute(
+          path: CancelledPage.path,
+          page: CancelledPageRoute.page,
+          guards: [AuthGuard(ref)],
+        ),
+        AutoRoute(
+          path: ConfirmationPage.path,
+          page: ConfirmationPageRoute.page,
+          guards: [AuthGuard(ref)],
+        ),
+        AutoRoute(
+          path: PricePage.path,
+          page: PricePageRoute.page,
           guards: [AuthGuard(ref)],
         ),
       ];
